@@ -8,7 +8,7 @@ include $(TOPDIR)/rules.mk
 LUCI_TITLE:=LuCI support for EasyUpdate From sundaqiang
 LUCI_DEPENDS:=+bash +curl
 LUCI_PKGARCH:=all
-PKG_VERSION:=1.1
+PKG_VERSION:=1.2
 PKG_RELEASE:=20240925
 PKG_MAINTAINER:=sundaqiang
 
