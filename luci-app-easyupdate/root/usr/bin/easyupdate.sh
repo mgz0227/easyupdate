@@ -31,7 +31,7 @@ function getCloudVer() {
 	checkEnv
 	github=$(uci get easyupdate.main.github)
 	github=(${github//// })
-	curl "https://api.github.com/repos/${github[2]}/${github[3]}/releases/latest" | jsonfilter -e '@.tag_name' | sed -e 's/_x86_64//'
+	curl "https://api.github.com/repos/${github[2]}/${github[3]}/releases/latest" | jsonfilter -e '@.tag_name' | sed -e 's/^([0-9]{2}\.[0-9]{2}\.[0-9]{4}).*/\1/'
 }
 
 function downCloudVer() {
@@ -98,8 +98,8 @@ function updateCloud() {
 	writeLog 'Get the cloud firmware version(获取云端固件版本)'
 	cFirVer=$(getCloudVer)
 	writeLog "Cloud firmware version(云端固件版本):$cFirVer"
-	lFirVer=$(date -d "$lFirVer" )
-	cFirVer=$(date -d "$cFirVer" )
+	lFirVer=$(date -d "$lFirVer" +%s)
+	cFirVer=$(date -d "$cFirVer" +%s)
 	if [ $cFirVer -gt $lFirVer ]; then
 		writeLog 'Need to be updated(需要更新)'
 		checkShaRet=$(checkSha)
