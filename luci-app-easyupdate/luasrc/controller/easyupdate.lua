@@ -59,8 +59,8 @@ end
 function getver()
 	local e={}
     e.newver=luci.sys.exec("/usr/bin/easyupdate.sh -c")
-    e.newver=e.newver:sub(0,-2)
-    e.newverint=os.time({day=e.newver:sub(7,8), month=e.newver:sub(5,6), year=e.newver:sub(1,4), hour=e.newver:sub(10,11), min=e.newver:sub(12,13), sec=e.newver:sub(14,15)})
+    e.newver=e.newver:sub(1,10)
+    e.newverint=os.time({day=e.newver:sub(1,2), month=e.newver:sub(4,5), year=e.newver:sub(7,10), hour=0, min=0, sec=0})
 	luci.http.prepare_content("application/json")
 	luci.http.write_json(e)
 end
