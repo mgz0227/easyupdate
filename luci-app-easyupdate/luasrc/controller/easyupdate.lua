@@ -23,12 +23,12 @@ function index()
 	if r then
 	    c:commit("easyupdate")
 	end
-	entry({"admin", "services", "easyupdate"}, cbi("easyupdate"),_("EasyUpdate"), 99).dependent = true
-	entry({"admin", "services", "easyupdate", "getver"}, call("getver")).leaf = true
-	entry({"admin", "services", "easyupdate", "download"}, call("download")).leaf = true
-	entry({"admin", "services", "easyupdate", "getlog"}, call("getlog")).leaf = true
-	entry({"admin", "services", "easyupdate", "check"}, call("check")).leaf = true
-	entry({"admin", "services", "easyupdate", "flash"}, call("flash")).leaf = true
+	entry({"admin", "system", "easyupdate"}, cbi("easyupdate"),_("EasyUpdate"), 99).dependent = true
+	entry({"admin", "system", "easyupdate", "getver"}, call("getver")).leaf = true
+	entry({"admin", "system", "easyupdate", "download"}, call("download")).leaf = true
+	entry({"admin", "system", "easyupdate", "getlog"}, call("getlog")).leaf = true
+	entry({"admin", "system", "easyupdate", "check"}, call("check")).leaf = true
+	entry({"admin", "system", "easyupdate", "flash"}, call("flash")).leaf = true
 end
 
 function Split(str, delim, maxNb)  
