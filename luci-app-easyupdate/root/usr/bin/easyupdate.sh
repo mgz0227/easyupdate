@@ -93,13 +93,13 @@ function checkSha() {
 function updateCloud() {
 	checkEnv
 	writeLog 'Get the local firmware version(获取本地固件版本)'
-	lFirVer=$(cat /etc/openwrt_release | sed -n "s/DISTRIB_VERSIONS='\(.*\)'/\1/p")
+	lFirVer=$(cat /etc/openwrt_release)
 	writeLog "Local firmware version(本地固件版本):$lFirVer"
 	writeLog 'Get the cloud firmware version(获取云端固件版本)'
 	cFirVer=$(getCloudVer)
 	writeLog "Cloud firmware version(云端固件版本):$cFirVer"
-	lFirVer=$(date -d "${lFirVer:0:4}-${lFirVer:4:2}-${lFirVer:6:2} ${lFirVer:9:2}:${lFirVer:11:2}:${lFirVer:13:2}" +%s)
-	cFirVer=$(date -d "${cFirVer:0:4}-${cFirVer:4:2}-${cFirVer:6:2} ${cFirVer:9:2}:${cFirVer:11:2}:${cFirVer:13:2}" +%s)
+	lFirVer=$(date -d "$lFirVer" )
+	cFirVer=$(date -d "$cFirVer" )
 	if [ $cFirVer -gt $lFirVer ]; then
 		writeLog 'Need to be updated(需要更新)'
 		checkShaRet=$(checkSha)
