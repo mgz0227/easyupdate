@@ -31,7 +31,7 @@ function getCloudVer() {
 	checkEnv
 	github=$(uci get easyupdate.main.github)
 	github=(${github//// })
-	curl "https://api.github.com/repos/${github[2]}/${github[3]}/releases/latest" | jsonfilter -e '@.tag_name' | sed -e 's/OpenWrt_//'
+	curl "https://api.github.com/repos/${github[2]}/${github[3]}/releases/latest" | jsonfilter -e '@.tag_name' | sed -e 's/_x86_64//'
 }
 
 function downCloudVer() {
@@ -82,7 +82,7 @@ function checkSha() {
 	if [[ -z "$file" ]]; then
 		for filename in $(ls /tmp)
 		do
-			if [[ "${filename#*.}" = "img.gz" && "${filename:0:7}" = "openwrt" ]]; then
+			if [[ "${filename#*.}" = "img.gz" && "${filename:0:7}" = "meowwrt" ]]; then
 				file=$filename
 			fi
 		done
