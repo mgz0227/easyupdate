@@ -2,17 +2,16 @@
 	<input class="cbi-button cbi-input-reload" id="update" type="button" value="<%:Collecting data...%>" size="0" disabled onclick="check_version()">
 	<br>
 	<div class="cbi-value-description">
-		
 		<span>
-		    <%:Local Firmware Version%>:<%=self.versions%>
+		    <%:Local Firmware Version%>:<%=luci.sys.exec("grep 'DISTRIB_RELEASE' /etc/openwrt_release | cut -d '=' -f 2")%>
 		</span>
 		<br>
-		
 		<span id="cloudver">
 		    <%:Cloud Firmware Version%>:<%:Collecting data...%>
 		</span>
 	</div>
 <%+cbi/valuefooter%>
+
 <style type="text/css">
 	#update_apply_overlay {
 	    white-space: pre-line;
@@ -63,6 +62,7 @@
 	    width: 45VW!important;
 	}
 </style>
+
 <script type="text/javascript">
 function update_status_message(type, content) {
 	document.getElementById('update_apply_overlay') || document.body.insertAdjacentHTML("beforeend",'<div id="update_apply_overlay"><div class="alert-message"></div></div>')
@@ -84,6 +84,7 @@ function update_status_message(type, content) {
 		document.body.classList.remove('apply-overlay-active');
 	}
 }
+
 function getver() {
     XHR.get('<%=url([[admin]], [[system]], [[easyupdate]], [[getver]])%>', null,
     	function(x, data) {
@@ -92,7 +93,11 @@ function getver() {
             if (data && tb) {
                 if (data.newver) {
                     tb.innerHTML = '<%:Cloud Firmware Version%>:' + data.newver;
-                    nowverint=<%=os.time({day=self.versions:sub(7,8), month=self.versions:sub(5,6), year=self.versions:sub(1,4), hour=self.versions:sub(10,11), min=self.versions:sub(12,13), sec=self.versions:sub(14,15)})%>
+                    nowverint = <%=os.time({
+    										day = self.versions:sub(1, 2),
+    										month = self.versions:sub(4, 5),
+    										year = self.versions:sub(7, 10)
+												})%>
                     if (data.newverint > nowverint){
                         up.value = '<%:Download Firmware%>'
                         up.disabled = false
@@ -119,6 +124,7 @@ function getver() {
 	});
 }
 getver()
+
 function check_version() {
     const tb = document.getElementById('update');
     const flash= tb.getAttribute("flash")
