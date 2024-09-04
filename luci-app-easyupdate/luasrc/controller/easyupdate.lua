@@ -68,7 +68,7 @@ end
 function download()
 	local e={}
 	ret=luci.sys.exec("/usr/bin/easyupdate.sh -d")
-	e.data=ret:match("meowwrt.+%.img%.gz")
+	e.data=ret:match("MeowWrt.+%.img%.gz")
 	e.code=1
 	luci.http.prepare_content("application/json")
 	luci.http.write_json(e)
